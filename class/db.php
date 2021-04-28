@@ -27,8 +27,8 @@ class db {
                 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
             $sqlcreatetable2 = "
               CREATE TABLE IF NOT EXISTS `posts` (
-                `uploaderid` int(11),
                 `id` int(11) NOT NULL AUTO_INCREMENT,
+                `uploaderid` int(11),
                 `name` varchar(100) NOT NULL,
                 `category` varchar(100) NOT NULL,
                 `time` TIME,
@@ -47,5 +47,11 @@ class db {
             mysqli_query($this->con, $sqlcreatetable2);
             mysqli_query($this->con, $sqlcreatetable3);
         }
+    }
+
+    public function uploadPost(post $post) {
+        $sqlInsertImageIntoDb = "INSERT INTO `posts`(`uploaderid`,`name`, `category`, `time`, `date`) VALUES ('" . $post->geUploaderID() . "','" . $post->getName() . "','" . $post->getCategory() . "','" . $post->getTime() . "','" . $post->getDate() . "')";
+        mysqli_query($this->con, $sqlInsertImageIntoDb);
+        header('location: /Projekt/index.php');
     }
 }
